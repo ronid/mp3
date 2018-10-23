@@ -4,7 +4,7 @@ import {find} from 'lodash';
 import * as React from 'react';
 import {Browser} from './browser';
 import {Player} from './player';
-// import {Playlist} from "./playlist";
+import {Playlist} from "./playlist";
 import {Song} from "./song";
 
 
@@ -116,51 +116,12 @@ export class MP3 extends React.Component {
     playAction={this.setSong}
   />);
 
-  // public renderContent = () => {
-  //   if (this.state.activeRoute === 'live') {
-  //
-  //
-  //     return (
-  //       <div className='mp3-body'>
-  //         <div className='browser'>
-  //           <Browser songs={this.state.songs} active={this.state.activeSong} setSong={this.setSong}
-  //                    renderSong={this.renderSong}/>
-  //         </div>
-  //         <div className='player'>
-  //           <Player
-  //             id={currentSong.id}
-  //             title={currentSong.name}
-  //             avatar={currentSong.avatar}
-  //             singer={currentSong.singer}
-  //             playNext={this.playNext}
-  //             playPrevious={this.playPrevious}
-  //             songURL={currentSong.songURL}
-  //           />
-  //         </div>
-  //       </div>
-  //     )
-  //
-  //   } else if (this.state.activeRoute === 'playlist') {
-  //     return <Playlist playlist={this.state.playlist} renderSong={this.renderSong}/>
-  //
-  //   } else {
-  //     return <div>Invalid URL</div>
-  //   }
-  // };
-
-  public render() {
+  public renderContent = () => {
     const currentSong = find(this.state.songs, {id: this.state.activeSong});
+    if (this.state.activeRoute === 'live') {
 
-    return (
-      <div>
-        <Menu onClick={this.changeRoute} selectedKeys={[this.state.activeRoute]} mode="horizontal">
-          <Menu.Item key="live">
-            <Icon type="home"/>Live
-          </Menu.Item>
-          <Menu.Item key="playlist">
-            <Icon type="bars"/>Playlists
-          </Menu.Item>
-        </Menu>
+
+      return (
         <div className='mp3-body'>
           <div className='browser'>
             <Browser songs={this.state.songs} active={this.state.activeSong} setSong={this.setSong}
@@ -178,6 +139,28 @@ export class MP3 extends React.Component {
             />
           </div>
         </div>
+      )
+
+    } else if (this.state.activeRoute === 'playlist') {
+      return <Playlist playlist={this.state.playlist} renderSong={this.renderSong}/>
+
+    } else {
+      return <div>Invalid URL</div>
+    }
+  };
+
+  public render() {
+    return (
+      <div>
+        <Menu onClick={this.changeRoute} selectedKeys={[this.state.activeRoute]} mode="horizontal">
+          <Menu.Item key="live">
+            <Icon type="home"/>Live
+          </Menu.Item>
+          <Menu.Item key="playlist">
+            <Icon type="bars"/>Playlists
+          </Menu.Item>
+        </Menu>
+        {this.renderContent()}
       </div>
     )
   }
