@@ -1,12 +1,19 @@
 import 'antd/dist/antd.css';
 import * as React from 'react';
-import 'react-flex/index.css';
+import {Provider} from 'react-redux';
 import {MP3} from './components/mp3';
+import configureStore from "./configureStore";
 
+
+const store = configureStore();
+console.log(store.getState());
 
 class App extends React.Component {
   public render() {
-    return <MP3/>
+    return (
+      <Provider store={store}>
+        <MP3/>
+      </Provider>)
   }
 }
 
