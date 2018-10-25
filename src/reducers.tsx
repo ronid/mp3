@@ -11,7 +11,7 @@ const activeRoute = (state = 'live', action) => {
 };
 
 
-const activeSong = (state = null, action) => {
+const activeSong = (state = 0, action) => {
   switch (action.type) {
     case 'SET_SONG':
       return action.songID;

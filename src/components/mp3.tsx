@@ -2,11 +2,10 @@ import {Icon, Menu} from 'antd';
 import {ClickParam} from "antd/es/menu";
 import {find} from 'lodash';
 import * as React from 'react';
-import {Browser} from './browser';
+import Browser  from './browser'
 import {Player} from './player';
 import {Playlist} from "./playlist";
 import {Song} from "./song";
-
 
 export class MP3 extends React.Component {
   public state = {
