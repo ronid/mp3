@@ -1,9 +1,11 @@
 import {List} from 'antd';
 import * as React from 'react';
 import {connect} from 'react-redux';
+import {playSong} from "../actions";
+import {getActiveSong, getAllSongs} from "../reducers";
 import {Song} from "./song";
 
-class BrowserRender extends React.Component<{ activeSong: number, songs: [], setSong: any }> {
+class BrowserView extends React.Component<{ activeSong: number, songs: [], setSong: any }> {
   public renderSong = (song) => (<Song
     id={song.id}
     title={song.name}
@@ -19,21 +21,17 @@ class BrowserRender extends React.Component<{ activeSong: number, songs: [], set
 }
 
 const mapStateToProps = state => ({
-  activeSong: state.activeSong,
-  songs: state.songs,
+  activeSong: getActiveSong(state),
+  songs: getAllSongs(state),
 });
 
 
 const mapDispatchToProps = dispatch => ({
-  setSong: (songID) => dispatch(
-    {
-      songID,
-      type: 'SET_SONG',
-    }
-  )
+  setSong: (songID) => dispatch(playSong(songID))
+
 });
 
 
-const Browser = connect(mapStateToProps, mapDispatchToProps)(BrowserRender);
+const Browser = connect(mapStateToProps, mapDispatchToProps)(BrowserView);
 export default Browser;
 
