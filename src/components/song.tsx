@@ -1,5 +1,5 @@
 import {Avatar, Icon, List} from 'antd';
-import * as React from "react";
+import * as React from 'react';
 
 export class Song extends React.Component<{
   id: number,
@@ -12,10 +12,10 @@ export class Song extends React.Component<{
 
   public getIcons = () => {
     if (this.props.isActive) {
-      return <Icon type="pause"/>
+      return <Icon type='pause'/>
     }
 
-    return <Icon type="caret-right" onClick={this.playSong}/>
+    return <Icon type='caret-right' onClick={this.playSong}/>
   };
 
   public playSong = (event: React.MouseEvent<HTMLElement>) => {

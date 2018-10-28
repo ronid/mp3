@@ -1,9 +1,9 @@
 import {Icon, Menu} from 'antd';
-import {ClickParam} from "antd/es/menu";
+import {ClickParam} from 'antd/es/menu';
 import * as React from 'react';
 import Browser from './browser'
 import Player from './player';
-import Playlist from "./playlist";
+import Playlist from './playlist';
 
 export class MP3 extends React.Component {
   public state = {
@@ -40,12 +40,12 @@ export class MP3 extends React.Component {
   public render() {
     return (
       <div>
-        <Menu onClick={this.changeRoute} selectedKeys={[this.state.activeRoute]} mode="horizontal">
-          <Menu.Item key="live">
-            <Icon type="home"/>Live
+        <Menu onClick={this.changeRoute} selectedKeys={[this.state.activeRoute]} mode='horizontal'>
+          <Menu.Item key='live'>
+            <Icon type='home'/>Live
           </Menu.Item>
-          <Menu.Item key="playlist">
-            <Icon type="bars"/>Playlists
+          <Menu.Item key='playlist'>
+            <Icon type='bars'/>Playlists
           </Menu.Item>
         </Menu>
         {this.renderContent()}

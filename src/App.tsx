@@ -2,7 +2,7 @@ import 'antd/dist/antd.css';
 import * as React from 'react';
 import {Provider} from 'react-redux';
 import {MP3} from './components/mp3';
-import configureStore from "./configureStore";
+import configureStore from './configureStore';
 
 
 const store = configureStore();

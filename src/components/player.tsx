@@ -2,7 +2,7 @@ import {Card, Icon} from 'antd';
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {playNext, playPrevious} from '../actions';
-import {getActiveSong, getSong} from '../reducers';
+import {getActiveSong, getSong} from '../reducers/songs';
 
 const {Meta} = Card;
 

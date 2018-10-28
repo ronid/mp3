@@ -2,9 +2,10 @@ import {Icon, List, Menu} from 'antd';
 import {map} from 'lodash';
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {setPlaylist} from "../actions";
-import {getActivePlaylist, getActiveSong, getPlaylist} from "../reducers";
-import {Song} from "./song";
+import {setPlaylist} from '../actions';
+import {getActivePlaylist, getPlaylist} from "../reducers/playlist";
+import {getActiveSong} from '../reducers/songs';
+import {Song} from './song';
 
 
 class PlaylistView extends React.Component<{
@@ -32,7 +33,7 @@ class PlaylistView extends React.Component<{
         <Menu
           onClick={this.props.setPlaylist}
           selectedKeys={this.props.currentPlaylist.name}
-          mode="vertical">
+          mode='vertical'>
           {map(this.props.playlist, this.renderPlayList)}
         </Menu>
         <List

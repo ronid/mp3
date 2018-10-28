@@ -1,6 +1,6 @@
 import {applyMiddleware, createStore} from 'redux';
 import createLogger from 'redux-logger';
-import {mp3} from "./reducers";
+import {mp3} from './reducers';
 
 
 const configureStore = () => {
@@ -85,6 +85,6 @@ const configureStore = () => {
       }
     } as any,
     applyMiddleware(createLogger))
-}
+};
 
 export default configureStore;

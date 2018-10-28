@@ -1,9 +1,9 @@
 import {List} from 'antd';
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {playSong} from "../actions";
-import {getActiveSong, getAllSongs} from "../reducers";
-import {Song} from "./song";
+import {playSong} from '../actions';
+import {getActiveSong, getAllSongs} from '../reducers/songs';
+import {Song} from './song';
 
 class BrowserView extends React.Component<{ activeSong: number, songs: [], setSong: any }> {
   public renderSong = (song) => (<Song
