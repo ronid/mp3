@@ -1,12 +1,15 @@
+import {connectRouter, routerMiddleware} from 'connected-react-router';
+import {createBrowserHistory} from 'history';
 import {applyMiddleware, createStore} from 'redux';
 import createLogger from 'redux-logger';
 import {mp3} from './reducers';
 
+export const history = createBrowserHistory();
 
 const configureStore = () => {
-  return createStore(mp3,
+  return createStore(
+    connectRouter(history)(mp3),
     {
-      activeRoute: 'live',
       playlist: {
         activePlaylist: undefined,
         all: [{
@@ -84,7 +87,8 @@ const configureStore = () => {
         ]
       }
     } as any,
-    applyMiddleware(createLogger))
+    applyMiddleware(routerMiddleware(history), createLogger)
+  )
 };
 
 export default configureStore;
