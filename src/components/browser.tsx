@@ -1,16 +1,16 @@
 import {List} from 'antd';
+import {push} from 'connected-react-router';
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {playSong} from '../actions';
 import {getActiveSong, getAllSongs} from '../reducers/songs';
 import {Song} from './song';
 
-class BrowserView extends React.Component<{ activeSong: number, songs: [], setSong: any }> {
+class BrowserView extends React.Component<{ activeSong: any, songs: [], setSong: any }> {
   public renderSong = (song) => (<Song
     id={song.id}
     title={song.name}
     avatar={song.avatar}
-    isActive={song.id === this.props.activeSong}
+    isActive={this.props.activeSong && song.id === this.props.activeSong.id}
     singer={song.singer}
     playAction={this.props.setSong}
   />);
@@ -20,14 +20,14 @@ class BrowserView extends React.Component<{ activeSong: number, songs: [], setSo
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   activeSong: getActiveSong(state),
-  songs: getAllSongs(state),
+  songs: ownProps.songs ? ownProps.songs : getAllSongs(state),
 });
 
 
 const mapDispatchToProps = dispatch => ({
-  setSong: (songID) => dispatch(playSong(songID))
+  setSong: (songID) => dispatch(push(`?song=${songID}`))
 
 });
 

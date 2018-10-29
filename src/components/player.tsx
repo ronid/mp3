@@ -1,42 +1,33 @@
 import {Card, Icon} from 'antd';
+import {push} from 'connected-react-router';
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {playNext, playPrevious} from '../actions';
-import {getActiveSong, getSong} from '../reducers/songs';
+import {getActiveSong, getNextSong, getPreviousSong} from '../reducers/songs';
 
 const {Meta} = Card;
 
 
 export class PlayerView extends React.Component<{
-  activeSong: number,
+  id: string,
   title: string,
   avatar: string,
   singer: string,
   songURL: string,
-  playNext: (currentSong: number) => void,
-  playPrevious: (currentSong: number) => void,
+  playSong: (songID: string) => (dispatch: any) => void,
+  playPrevious: (event: any) => void,
+  nextSong: any,
+  previousSong: any,
 }> {
-
-  public nextSong = (event: React.MouseEvent) => {
-    event.preventDefault();
-    this.props.playNext(this.props.activeSong);
-  };
-
-
-  public prevSong = (event: React.MouseEvent) => {
-    event.preventDefault();
-    this.props.playPrevious(this.props.activeSong);
-  };
 
   public render() {
     return (
       <Card
         cover={<img src={this.props.avatar}/>}
         actions={[
-          <Icon key={1} onClick={this.prevSong} type='step-backward'/>,
-          <Icon key={3} onClick={this.nextSong} type='step-forward'/>]}>
+          <Icon key={this.props.previousSong.id} onClick={this.props.playSong(this.props.previousSong.id)} type='step-backward'/>,
+          <Icon key={this.props.nextSong.id} onClick={this.props.playSong(this.props.nextSong.id)} type='step-forward'/>]}>
         <Meta title={this.props.title} description={this.props.singer}/>
-        <audio className='audioPlayer' controls={true} key={this.props.activeSong} autoPlay={false}>
+        <audio className='audioPlayer' controls={true} key={this.props.id} autoPlay={false}>
           <source src={this.props.songURL} type='audio/mpeg'/>
         </audio>
       </Card>
@@ -45,19 +36,18 @@ export class PlayerView extends React.Component<{
 }
 
 
-const mapStateToProps = state => ({
-  activeSong: getActiveSong(state),
-  ...getSong(state, state.songs.activeSong),
+const mapStateToProps = (state) => ({
+  ...getActiveSong(state),
+  nextSong: getNextSong(state),
+  previousSong: getPreviousSong(state),
 });
 
 
-const mapDispatchToProps = dispatch => ({
-  playNext: (songID) => dispatch(playNext(songID)),
-  playPrevious: (songID) => dispatch(playPrevious(songID)),
+const mapDispatchToProps = (dispatch) => ({
+  playSong: songID => (_) => {
+    return dispatch(push(`/live/?song=${songID}`))
+  },
 });
 
 const Player = connect(mapStateToProps, mapDispatchToProps)(PlayerView);
-export default Player
-
-
-;
+export default Player;

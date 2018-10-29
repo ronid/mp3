@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Navbar from '../navbar';
+import Player from '../player';
 import Playlist from '../playlist';
 
 export class PlaylistView extends React.Component {
@@ -7,7 +8,10 @@ export class PlaylistView extends React.Component {
     return (
       <div>
         <Navbar/>
-        <Playlist/>
+        <div className='mp3-body'>
+          <Playlist/>
+          <Player/>
+        </div>
       </div>
     )
   }

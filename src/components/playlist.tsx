@@ -1,11 +1,12 @@
-import {Icon, List, Menu} from 'antd';
+import {Icon, Menu} from 'antd';
+import {push} from 'connected-react-router';
 import {map} from 'lodash';
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {setPlaylist} from '../actions';
-import {getActivePlaylist, getPlaylist} from "../reducers/playlist";
+import {getActivePlaylist, getPlaylist} from '../reducers/playlist';
 import {getActiveSong} from '../reducers/songs';
-import {Song} from './song';
+import Browser from './browser';
 
 
 class PlaylistView extends React.Component<{
@@ -15,15 +16,6 @@ class PlaylistView extends React.Component<{
   setSong: (songID: number) => void,
   setPlaylist: (event: any) => void,
 }> {
-
-  public renderSong = (song) => (<Song
-    id={song.id}
-    title={song.name}
-    avatar={song.avatar}
-    isActive={song.id === this.props.activeSong}
-    singer={song.singer}
-    playAction={this.props.setSong}
-  />);
 
   public renderPlayList = (playlist) => <Menu.Item key={playlist.name}><Icon type='plus-circle'/>{playlist.name}</Menu.Item>
 
@@ -36,11 +28,9 @@ class PlaylistView extends React.Component<{
           mode='vertical'>
           {map(this.props.playlist, this.renderPlayList)}
         </Menu>
-        <List
-          className='playlist'
-          itemLayout='horizontal'
-          dataSource={this.props.currentPlaylist.songs}
-          renderItem={this.renderSong}/>
+        <div className='browser'>
+          <Browser songs={this.props.currentPlaylist.songs}/>
+        </div>
       </div>
     )
   }
@@ -54,9 +44,10 @@ const mapStateToProps = state => ({
 
 
 const mapDispatchToProps = dispatch => ({
-  setPlaylist: (event) => {
+  setPlaylist: event => {
     dispatch(setPlaylist(event.key))
-  }
+  },
+  setSong: songID => dispatch(push(`?song=${songID}`))
 });
 
 const Player = connect(mapStateToProps, mapDispatchToProps)(PlaylistView);
