@@ -24,8 +24,17 @@ export class PlayerView extends React.Component<{
       <Card
         cover={<img src={this.props.avatar}/>}
         actions={[
-          <Icon key={this.props.previousSong.id} onClick={this.props.playSong(this.props.previousSong.id)} type='step-backward'/>,
-          <Icon key={this.props.nextSong.id} onClick={this.props.playSong(this.props.nextSong.id)} type='step-forward'/>]}>
+          <Icon
+            key={this.props.previousSong.id}
+            onClick={this.props.playSong(this.props.previousSong.id)}
+            type='step-backward'
+          />,
+          <Icon
+            key={this.props.nextSong.id}
+            onClick={this.props.playSong(this.props.nextSong.id)}
+            type='step-forward'
+          />
+        ]}>
         <Meta title={this.props.title} description={this.props.singer}/>
         <audio className='audioPlayer' controls={true} key={this.props.id} autoPlay={false}>
           <source src={this.props.songURL} type='audio/mpeg'/>

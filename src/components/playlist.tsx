@@ -16,7 +16,11 @@ class PlaylistView extends React.Component<{
   setPlaylist: (event: any) => void,
 }> {
 
-  public renderPlayList = (playlist) => <Menu.Item key={playlist.id}><Icon type='plus-circle'/>{playlist.name}</Menu.Item>
+  public renderPlayList = playlist => (
+    <Menu.Item key={playlist.id}>
+      <Icon type='plus-circle'/>{playlist.name}
+      </Menu.Item>
+  )
 
   public render() {
     return (

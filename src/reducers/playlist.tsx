@@ -2,12 +2,7 @@ import {find} from 'lodash';
 
 
 const playlist = (state = {}, action) => {
-  switch (action.type) {
-    case 'SET_PLAYLIST':
-      return {...state, activePlaylist: [action.name]};
-    default:
-      return state
-  }
+  return state;
 };
 
 export default playlist;

@@ -25,7 +25,6 @@ const mapDispatchToProps = (dispatch) => ({
   changeRoute: ({key}) => {
     return dispatch(push(`${key}`))
   }
-
 });
 
 

@@ -8,7 +8,7 @@ export class MP3 extends React.Component {
   public render() {
     return (
       <Switch>
-        <Route exact={true} path='/' render={() => <PlaylistView/>}/>
+        <Route exact={true} path='/' render={() => <HomeView/>}/>
         <Route path='/playlist' render={() => <PlaylistView/>}/>
         <Route path='/live' render={() => <HomeView/>}/>
       </Switch>
