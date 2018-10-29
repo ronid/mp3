@@ -1,4 +1,5 @@
 import {find, findIndex} from 'lodash';
+import {getActivePlaylist} from './playlist';
 
 const songs = (state = {all: [], activeSong: 0}, action) => {
   switch (action.type) {
@@ -26,8 +27,11 @@ export const getNextSong = (state, id?) => {
     return {};
   }
   id = id ? id : getActiveSong(state).id;
-  const index = findIndex(state.songs.all, {id});
-  return state.songs.all[(index + 1) % state.songs.all.length]
+
+  const activePlaylist = getActivePlaylist(state);
+  const songs = activePlaylist ? activePlaylist.songs : state.songs.all;
+  const index = findIndex(songs, {id});
+  return songs[(index + 1) % songs.length]
 };
 
 
@@ -36,11 +40,14 @@ export const getPreviousSong = (state, id?) => {
     return {};
   }
   id = id ? id : getActiveSong(state).id;
-  let index = findIndex(state.songs.all, {id}) - 1;
+
+  const activePlaylist = getActivePlaylist(state);
+  const songs = activePlaylist ? activePlaylist.songs : state.songs.all;
+  let index = findIndex(songs, {id}) - 1;
   if (index < 0) {
-    index = state.songs.all.length - 1;
+    index = songs.length - 1;
   }
-  return state.songs.all[index]
+  return songs[index]
 };
 
 export const getAllSongs = state => state.songs.all;

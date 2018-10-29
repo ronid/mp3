@@ -45,7 +45,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   playSong: songID => (_) => {
-    return dispatch(push(`/live/?song=${songID}`))
+    return dispatch(push(`?song=${songID}`))
   },
 });
 

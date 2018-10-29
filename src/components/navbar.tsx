@@ -21,8 +21,10 @@ const mapStateToProps = state => ({
 });
 
 
-const mapDispatchToProps = dispatch => ({
-  changeRoute: ({key}) => dispatch(push(`${key}`))
+const mapDispatchToProps = (dispatch) => ({
+  changeRoute: ({key}) => {
+    return dispatch(push(`${key}`))
+  }
 
 });
 

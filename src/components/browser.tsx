@@ -27,7 +27,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 
 const mapDispatchToProps = dispatch => ({
-  setSong: (songID) => dispatch(push(`?song=${songID}`))
+  setSong: songID => (_) => dispatch(push(`?song=${songID}`))
 
 });
 

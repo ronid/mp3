@@ -7,21 +7,16 @@ export class Song extends React.Component<{
   avatar: string,
   singer: string,
   isActive: boolean,
-  playAction: (active: number) => void
+  playAction: (songID: number) => (event: any) => void
 }> {
 
   public getIcons = () => {
     if (this.props.isActive) {
       return <Icon type='pause'/>
     }
-
-    return <Icon type='caret-right' onClick={this.playSong}/>
+    return <Icon type='caret-right' onClick={this.props.playAction(this.props.id)}/>
   };
 
-  public playSong = (event: React.MouseEvent<HTMLElement>) => {
-    event.preventDefault();
-    this.props.playAction(this.props.id);
-  };
 
   public render() {
     return (

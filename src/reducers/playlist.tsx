@@ -13,13 +13,15 @@ const playlist = (state = {}, action) => {
 export default playlist;
 
 export const getActivePlaylist = state => {
-  const name = state.playlist.activePlaylist;
-  if (!name) {
-    return {name, songs: []}
+  const regexp = /playlist\/(\S+)/;
+  const idFromURL = regexp.exec(state.router.location.pathname);
+  if (!idFromURL) {
+    return undefined;
   }
-
-  const currPlaylist = find(state.playlist.all, {name: name[0]});
-  return {name, songs: currPlaylist.songs}
+  const playlistID = idFromURL[1];
+  return getPlaylist(state, playlistID);
 };
 
-export const getPlaylist = state => state.playlist.all;
+export const getPlaylist = (state, id) => find(state.playlist.all, {id});
+
+export const getAllPlaylist = state => state.playlist.all;

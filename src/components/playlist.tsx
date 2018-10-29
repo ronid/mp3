@@ -3,8 +3,7 @@ import {push} from 'connected-react-router';
 import {map} from 'lodash';
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {setPlaylist} from '../actions';
-import {getActivePlaylist, getPlaylist} from '../reducers/playlist';
+import {getActivePlaylist, getAllPlaylist} from '../reducers/playlist';
 import {getActiveSong} from '../reducers/songs';
 import Browser from './browser';
 
@@ -17,7 +16,7 @@ class PlaylistView extends React.Component<{
   setPlaylist: (event: any) => void,
 }> {
 
-  public renderPlayList = (playlist) => <Menu.Item key={playlist.name}><Icon type='plus-circle'/>{playlist.name}</Menu.Item>
+  public renderPlayList = (playlist) => <Menu.Item key={playlist.id}><Icon type='plus-circle'/>{playlist.name}</Menu.Item>
 
   public render() {
     return (
@@ -29,7 +28,7 @@ class PlaylistView extends React.Component<{
           {map(this.props.playlist, this.renderPlayList)}
         </Menu>
         <div className='browser'>
-          <Browser songs={this.props.currentPlaylist.songs}/>
+          <Browser songs={this.props.currentPlaylist.songs || []}/>
         </div>
       </div>
     )
@@ -38,16 +37,14 @@ class PlaylistView extends React.Component<{
 
 const mapStateToProps = state => ({
   activeSong: getActiveSong(state),
-  currentPlaylist: getActivePlaylist(state),
-  playlist: getPlaylist(state)
+  currentPlaylist: getActivePlaylist(state) || {},
+  playlist: getAllPlaylist(state)
 });
 
 
 const mapDispatchToProps = dispatch => ({
-  setPlaylist: event => {
-    dispatch(setPlaylist(event.key))
-  },
-  setSong: songID => dispatch(push(`?song=${songID}`))
+  setPlaylist: ({key}) => dispatch(push(`/playlist/${key}`)),
+  setSong: songID => dispatch(push(`song=${songID}`))
 });
 
 const Player = connect(mapStateToProps, mapDispatchToProps)(PlaylistView);
