@@ -25,7 +25,7 @@ body {
     width: 750px;
 }
 
-.audioPlayer {
+.audio-player {
     margin-top: 25px;
     width: 100%;
 
@@ -34,4 +34,8 @@ body {
 .playlist {
     width: 500px;
     margin-left: 15px;
+}
+
+.modal-button {
+    margin: 5px;
 }

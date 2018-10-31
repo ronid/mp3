@@ -1,7 +1,12 @@
 import {find} from 'lodash';
 
 
-const playlist = (state = {}, action) => {
+const playlist = (state = {all: []}, action) => {
+  if (action.type === 'NEW_PLAYLIST') {
+    let newPlaylist = state.all;
+    newPlaylist = newPlaylist.concat(action.playlist);
+    return {...state, all: newPlaylist}
+  }
   return state;
 };
 

@@ -32,6 +32,9 @@
     ],
     "no-shadowed-variable": [
       false
+    ],
+    "jsx-no-bind": [
+      false
     ]
   }
 }

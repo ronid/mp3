@@ -1,12 +1,14 @@
 import {Avatar, Icon, List} from 'antd';
 import * as React from 'react';
+import {connect} from 'react-redux';
+import {getSong} from '../reducers/songs';
 
-export class Song extends React.Component<{
+class SongView extends React.Component<{
   id: number,
-  title: string,
-  avatar: string,
-  singer: string,
-  isActive: boolean,
+  title?: string,
+  avatar?: string,
+  singer?: string,
+  isActive?: boolean,
   playAction: (songID: number) => (event: any) => void
 }> {
 
@@ -30,3 +32,15 @@ export class Song extends React.Component<{
     )
   }
 }
+
+
+const mapStateToProps = (state, ownProps) => ({
+  ...getSong(state, ownProps.id),
+});
+
+
+const Song = connect(mapStateToProps)(SongView);
+export default Song;
+
+
+

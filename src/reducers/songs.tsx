@@ -1,4 +1,4 @@
-import {find, findIndex} from 'lodash';
+import {indexOf, keys, values} from 'lodash';
 import {getActivePlaylist} from './playlist';
 
 const songs = (state = {all: []}, action) => {
@@ -7,39 +7,44 @@ const songs = (state = {all: []}, action) => {
 
 export default songs;
 
-export const getSong = (state, id) => find(state.songs.all, {id});
+export const getSong = (state, id) => state.songs.byID[id];
 
-export const getNextSong = (state, id?) => {
+export const getNextSongID = (state, id?) => {
   if (!id && !getActiveSong(state)) {
     return {};
   }
   id = id ? id : getActiveSong(state).id;
-
   const activePlaylist = getActivePlaylist(state);
-  const songs = activePlaylist ? activePlaylist.songs : state.songs.all;
-  const index = findIndex(songs, {id});
+  const songs = activePlaylist ? activePlaylist.songs : keys(state.songs.byID);
+  const index = indexOf(songs, id);
   return songs[(index + 1) % songs.length]
 };
 
 
-export const getPreviousSong = (state, id?) => {
+export const getPreviousSongID = (state, id?) => {
   if (!id && !getActiveSong(state)) {
     return {};
   }
   id = id ? id : getActiveSong(state).id;
 
   const activePlaylist = getActivePlaylist(state);
-  const songs = activePlaylist ? activePlaylist.songs : state.songs.all;
-  let index = findIndex(songs, {id}) - 1;
+  const songs = activePlaylist ? activePlaylist.songs : keys(state.songs.byID);
+  let index = indexOf(songs, id) - 1;
   if (index < 0) {
     index = songs.length - 1;
   }
   return songs[index]
 };
 
-export const getAllSongs = state => state.songs.all;
+export const getAllSongs = state => values(state.songs.byID);
+
+export const getAllSongsIDS = state => keys(state.songs.byID);
 
 export const getActiveSong = state => {
   const values = new URLSearchParams(state.router.location.search);
-  return getSong(state, values.get('song'));
+  const activeSong = values.get('song');
+  if (!activeSong) {
+    return {}
+  }
+  return getSong(state, activeSong);
 };

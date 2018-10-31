@@ -2,7 +2,7 @@ import {Card, Icon} from 'antd';
 import {push} from 'connected-react-router';
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {getActiveSong, getNextSong, getPreviousSong} from '../reducers/songs';
+import {getActiveSong, getNextSongID, getPreviousSongID} from '../reducers/songs';
 
 const {Meta} = Card;
 
@@ -15,8 +15,8 @@ export class PlayerView extends React.Component<{
   songURL: string,
   playSong: (songID: string) => (dispatch: any) => void,
   playPrevious: (event: any) => void,
-  nextSong: any,
-  previousSong: any,
+  nextSongID: any,
+  previousSongID: any,
 }> {
 
   public render() {
@@ -25,18 +25,18 @@ export class PlayerView extends React.Component<{
         cover={<img src={this.props.avatar}/>}
         actions={[
           <Icon
-            key={this.props.previousSong.id}
-            onClick={this.props.playSong(this.props.previousSong.id)}
+            key={this.props.previousSongID}
+            onClick={this.props.playSong(this.props.previousSongID)}
             type='step-backward'
           />,
           <Icon
-            key={this.props.nextSong.id}
-            onClick={this.props.playSong(this.props.nextSong.id)}
+            key={this.props.nextSongID}
+            onClick={this.props.playSong(this.props.nextSongID)}
             type='step-forward'
           />
         ]}>
         <Meta title={this.props.title} description={this.props.singer}/>
-        <audio className='audioPlayer' controls={true} key={this.props.id} autoPlay={false}>
+        <audio className='audio-player' controls={true} key={this.props.id} autoPlay={false}>
           <source src={this.props.songURL} type='audio/mpeg'/>
         </audio>
       </Card>
@@ -47,8 +47,8 @@ export class PlayerView extends React.Component<{
 
 const mapStateToProps = (state) => ({
   ...getActiveSong(state),
-  nextSong: getNextSong(state),
-  previousSong: getPreviousSong(state),
+  nextSongID: getNextSongID(state),
+  previousSongID: getPreviousSongID(state),
 });
 
 
