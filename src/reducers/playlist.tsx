@@ -1,5 +1,7 @@
 import {find} from 'lodash';
+import * as UrlPattern from 'url-pattern';
 
+const PLAYLIST_PATTERN = new UrlPattern('/playlist/(:playlistID)(.*)')
 
 const playlist = (state = {all: []}, action) => {
   if (action.type === 'NEW_PLAYLIST') {
@@ -13,13 +15,12 @@ const playlist = (state = {all: []}, action) => {
 export default playlist;
 
 export const getActivePlaylist = state => {
-  const regexp = /playlist\/(\S+)/;
-  const idFromURL = regexp.exec(state.router.location.pathname);
-  if (!idFromURL) {
+  debugger;
+  const match = PLAYLIST_PATTERN.match(state.router.location.pathname);
+  if (!match) {
     return undefined;
   }
-  const playlistID = idFromURL[1];
-  return getPlaylist(state, playlistID);
+  return getPlaylist(state, match.playlistID);
 };
 
 export const getPlaylist = (state, id) => find(state.playlist.all, {id});

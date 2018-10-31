@@ -18,7 +18,9 @@ class AddPlaylistModalView extends React.Component<{
     const {name, songs} = this.props.form.getFieldsValue();
     this.props.addPlaylist(name, songs);
     this.props.handleSubmit(e);
-    this.props.form.setFieldsValue({name:'', songs: []})
+
+    // Reset form state.
+    this.props.form.setFieldsValue({name: '', songs: []})
   };
 
 

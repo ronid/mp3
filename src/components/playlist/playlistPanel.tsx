@@ -11,10 +11,10 @@ import AddPlaylistModal from './addPlaylistModal';
 
 
 class PlaylistView extends React.Component<{
+  activeSong: number,
   addPlaylist: (name, songs) => void,
   currentPlaylist: { songs: [], name: string, id: string },
-  activeSong: number,
-  playlist: [],
+  allPlaylist: [],
   setSong: (songID: number) => void,
   setPlaylist: (event: any) => void,
   songs: [],
@@ -24,7 +24,7 @@ class PlaylistView extends React.Component<{
     modalVisible: false,
   };
 
-  public renderPlayList = playlist => (
+  public renderPlaylist = playlist => (
     <Menu.Item key={playlist.id}>
       {playlist.name}
     </Menu.Item>
@@ -37,10 +37,11 @@ class PlaylistView extends React.Component<{
           onClick={this.props.setPlaylist}
           selectedKeys={[this.props.currentPlaylist.id]}
           mode='vertical'>
-          {map(this.props.playlist, this.renderPlayList)}
-          <Menu.Item onClick={(_) => {
-            this.setState({modalVisible: !this.state.modalVisible})
-          }}>
+          {map(this.props.allPlaylist, this.renderPlaylist)}
+          <Menu.Item
+            key='newPlaylist'
+            onClick={(_) => {this.setState({modalVisible: !this.state.modalVisible})
+            }}>
             <Icon type='plus-circle'/> Add new..
           </Menu.Item>
         </Menu>
@@ -61,14 +62,14 @@ class PlaylistView extends React.Component<{
 
 const mapStateToProps = state => ({
   activeSong: getActiveSong(state),
+  allPlaylist: getAllPlaylist(state),
   currentPlaylist: getActivePlaylist(state) || {},
-  playlist: getAllPlaylist(state),
   songs: getAllSongs(state),
 });
 
 
 const mapDispatchToProps = dispatch => ({
-  addPlaylist: (name, songs) => dispatch(addPlaylist(name, songs)),
+  addPlaylist: (name, songsIDs) => dispatch(addPlaylist(name, songsIDs)),
   setPlaylist: ({key}) => dispatch(push(`/playlist/${key}`)),
   setSong: songID => dispatch(push(`song=${songID}`))
 });

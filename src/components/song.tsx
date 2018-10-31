@@ -5,7 +5,7 @@ import {getSong} from '../reducers/songs';
 
 class SongView extends React.Component<{
   id: number,
-  title?: string,
+  name?: string,
   avatar?: string,
   singer?: string,
   isActive?: boolean,
@@ -24,7 +24,7 @@ class SongView extends React.Component<{
     return (
       <List.Item>
         <List.Item.Meta
-          title={this.props.title}
+          title={this.props.name}
           avatar={<Avatar src={this.props.avatar}/>}
           description={this.props.singer}/>
         {this.getIcons()}

@@ -9,7 +9,7 @@ const {Meta} = Card;
 
 export class PlayerView extends React.Component<{
   id: string,
-  title: string,
+  name: string,
   avatar: string,
   singer: string,
   songURL: string,
@@ -35,7 +35,7 @@ export class PlayerView extends React.Component<{
             type='step-forward'
           />
         ]}>
-        <Meta title={this.props.title} description={this.props.singer}/>
+        <Meta title={this.props.name} description={this.props.singer}/>
         <audio className='audio-player' controls={true} key={this.props.id} autoPlay={false}>
           <source src={this.props.songURL} type='audio/mpeg'/>
         </audio>

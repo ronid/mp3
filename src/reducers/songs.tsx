@@ -9,26 +9,38 @@ export default songs;
 
 export const getSong = (state, id) => state.songs.byID[id];
 
-export const getNextSongID = (state, id?) => {
+
+const chooseCurrentID = (state, id) => {
   if (!id && !getActiveSong(state)) {
-    return {};
+    return null;
   }
-  id = id ? id : getActiveSong(state).id;
+   return id || getActiveSong(state).id;
+
+};
+
+const getSongsByState = (state) => {
   const activePlaylist = getActivePlaylist(state);
-  const songs = activePlaylist ? activePlaylist.songs : keys(state.songs.byID);
-  const index = indexOf(songs, id);
-  return songs[(index + 1) % songs.length]
+  return activePlaylist ? activePlaylist.songs : keys(state.songs.byID);
+};
+
+export const getNextSongID = (state, id?) => {
+  id = chooseCurrentID(state, id);
+  if (!id) {
+    return null;
+  }
+
+  const songs =  getSongsByState(state);
+  return songs[(indexOf(songs, id) + 1) % songs.length]
 };
 
 
 export const getPreviousSongID = (state, id?) => {
-  if (!id && !getActiveSong(state)) {
-    return {};
+  id = chooseCurrentID(state, id);
+  if (!id) {
+    return null;
   }
-  id = id ? id : getActiveSong(state).id;
 
-  const activePlaylist = getActivePlaylist(state);
-  const songs = activePlaylist ? activePlaylist.songs : keys(state.songs.byID);
+  const songs =  getSongsByState(state);
   let index = indexOf(songs, id) - 1;
   if (index < 0) {
     index = songs.length - 1;
