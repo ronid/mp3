@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.mp3-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.browser {
+    margin: 15px;
+    width: 600px;
+}
+
+.player {
+    margin: auto;
+}
+
+.ant-card-cover img {
+    height: 600px;
+    object-fit: cover;
+    width: 750px;
+}
+
+.audio-player {
+    margin-top: 25px;
+    width: 100%;
+
+}
+
+.playlist {
+    width: 500px;
+    margin-left: 15px;
+}
+
+.modal-button {
+    margin: 5px;
+}
