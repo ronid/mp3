@@ -4,6 +4,10 @@ body {
     font-family: sans-serif;
 }
 
+a {
+    color: #4c8bc5;
+}
+
 .mp3-body {
     display: flex;
     flex-direction: row;

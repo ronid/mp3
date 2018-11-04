@@ -14,9 +14,9 @@ class SongView extends React.Component<{
 
   public getIcons = () => {
     if (this.props.isActive) {
-      return <Icon type='pause'/>
+      return <a><Icon type='pause'/></a>
     }
-    return <Icon type='caret-right' onClick={this.props.playAction(this.props.id)}/>
+    return <a><Icon type='caret-right' onClick={this.props.playAction(this.props.id)}/></a>
   };
 
 

@@ -15,7 +15,6 @@ const playlist = (state = {all: []}, action) => {
 export default playlist;
 
 export const getActivePlaylist = state => {
-  debugger;
   const match = PLAYLIST_PATTERN.match(state.router.location.pathname);
   if (!match) {
     return undefined;
