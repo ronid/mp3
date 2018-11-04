@@ -1,23 +1,17 @@
-import {Avatar, Icon, List} from 'antd';
+import {Avatar, List} from 'antd';
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {getSong} from '../reducers/songs';
+import { PlayPauseIcon } from './playPauseIcon';
 
 class SongView extends React.Component<{
   id: number,
-  name?: string,
-  avatar?: string,
-  singer?: string,
-  isActive?: boolean,
+  name: string,
+  avatar: string,
+  singer: string,
+  isActive: boolean,
   playAction: (songID: number) => (event: any) => void
 }> {
-
-  public getIcons = () => {
-    if (this.props.isActive) {
-      return <a><Icon type='pause'/></a>
-    }
-    return <a><Icon type='caret-right' onClick={this.props.playAction(this.props.id)}/></a>
-  };
 
 
   public render() {
@@ -27,7 +21,7 @@ class SongView extends React.Component<{
           title={this.props.name}
           avatar={<Avatar src={this.props.avatar}/>}
           description={this.props.singer}/>
-        {this.getIcons()}
+        <PlayPauseIcon isActive={this.props.isActive} onClick={this.props.playAction(this.props.id)}/>
       </List.Item>
     )
   }
