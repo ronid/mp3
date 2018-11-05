@@ -19,9 +19,9 @@ const Option = Select.Option;
 interface AddPlaylistModalProps {
   addPlaylist: (name: string, songs: string[]) => void,
   form: WrappedFormUtils,
-  handleCancel: (e: React.MouseEvent<HTMLInputElement>) => void
+  handleCancel: (e: React.MouseEvent<HTMLInputElement>) => void,
   handleSubmit: (e: React.MouseEvent<HTMLInputElement>) => void,
-  songs: [],
+  songs: SongState[],
   visible: boolean,
 }
 
@@ -35,7 +35,7 @@ class AddPlaylistModalView extends React.Component<AddPlaylistModalProps> {
     this.props.form.setFieldsValue({name: '', songs: []})
   };
 
-  public optionStartsWithInput = (input: string, option: React.ReactElement<OptionProps>) => {
+  public optionStartsWithInputFilter = (input: string, option: React.ReactElement<OptionProps>) => {
     const value = option.props.children;
     if (!(value && typeof value === 'string')) {
       return false;
@@ -43,7 +43,6 @@ class AddPlaylistModalView extends React.Component<AddPlaylistModalProps> {
       return value.toLowerCase().indexOf(input.toLowerCase()) >= 0
     }
   };
-
 
   public render() {
     const {getFieldDecorator} = this.props.form;
@@ -59,7 +58,7 @@ class AddPlaylistModalView extends React.Component<AddPlaylistModalProps> {
             style={{width: 200}}
             placeholder='Select songs'
             optionFilterProp='children'
-            filterOption={this.optionStartsWithInput}
+            filterOption={this.optionStartsWithInputFilter}
           >
             {map(this.props.songs, (song: SongState) => (<Option key={song.id}>{song.name}</Option>))}
           </Select>)}

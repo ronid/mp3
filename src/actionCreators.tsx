@@ -1,6 +1,6 @@
 import { v4 } from 'node-uuid';
 
-export const addPlaylist = (name: string, songs: []) => {
+export const addPlaylist = (name: string, songs: string[]) => {
   const id = v4();
   return {
     playlist: {
