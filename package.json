@@ -18,6 +18,7 @@
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.5",
     "redux-logger": "^3.0.6",
+    "styled-components": "^4.0.3",
     "url-pattern": "^1.0.3"
   },
   "scripts": {

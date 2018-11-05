@@ -1,11 +1,29 @@
-import { Card, Icon } from 'antd';
+import { Card } from 'antd';
 import { push } from 'connected-react-router';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { default as styled } from 'styled-components';
 import { getActiveSong, getNextSongID, getPreviousSongID } from '../reducers/songs';
+import { ClickableIcon } from './utils/style';
 
 const CardMeta = Card.Meta;
 
+
+export const SongCover = styled.img`
+  height: 600px;
+  object-fit: cover;
+  width: 750px;
+`;
+
+
+export const AudioPlayer = styled.audio`
+  margin-top: 25px;
+  width: 100%;
+`;
+
+export const PlayerBody = styled(Card)`
+  margin: auto;
+`;
 
 export class PlayerView extends React.Component<{
   id: string,
@@ -21,27 +39,25 @@ export class PlayerView extends React.Component<{
 
   public render() {
     return (
-      <Card
-        cover={<img src={this.props.avatar}/>}
+      <PlayerBody
+        cover={<SongCover src={this.props.avatar}/>}
         actions={[
-          <a key={this.props.previousSongID}>
-            <Icon
-              onClick={this.props.playSong(this.props.previousSongID)}
-              type='step-backward'
-            />
-          </a>,
-          <a key={this.props.nextSongID}>
-            <Icon
-              onClick={this.props.playSong(this.props.nextSongID)}
-              type='step-forward'
-            />
-          </a>
+          <ClickableIcon
+            key={this.props.previousSongID}
+            onClick={this.props.playSong(this.props.previousSongID)}
+            type='step-backward'
+          />,
+          <ClickableIcon
+            key={this.props.nextSongID}
+            onClick={this.props.playSong(this.props.nextSongID)}
+            type='step-forward'
+          />,
         ]}>
         <CardMeta title={this.props.name} description={this.props.singer}/>
-        <audio className='audio-player' controls={true} key={this.props.id} autoPlay={false}>
+        <AudioPlayer controls={true} key={this.props.id} autoPlay={false}>
           <source src={this.props.songURL} type='audio/mpeg'/>
-        </audio>
-      </Card>
+        </AudioPlayer>
+      </PlayerBody>
     )
   }
 }

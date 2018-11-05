@@ -2,8 +2,15 @@ import { List } from 'antd';
 import { push } from 'connected-react-router';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { default as styled } from 'styled-components';
 import { getActiveSong } from '../reducers/songs';
 import { Song } from './song';
+
+
+export const BrowserContent = styled.div`
+  margin: 15px;
+  width: 600px;
+`;
 
 class BrowserView extends React.Component<{ activeSong: any, songsIDs: [], setSong: any }> {
   public renderSong = (songID) => (<Song
@@ -13,7 +20,11 @@ class BrowserView extends React.Component<{ activeSong: any, songsIDs: [], setSo
   />);
 
   public render() {
-    return <List itemLayout='horizontal' dataSource={this.props.songsIDs} renderItem={this.renderSong}/>
+    return (
+      <BrowserContent>
+        <List itemLayout='horizontal' dataSource={this.props.songsIDs} renderItem={this.renderSong}/>
+      </BrowserContent>
+    )
   }
 }
 

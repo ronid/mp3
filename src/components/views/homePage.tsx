@@ -4,20 +4,17 @@ import { getAllSongsIDS } from '../../reducers/songs';
 import { Browser } from '../browser';
 import { Navbar } from '../navbar';
 import { Player } from '../player';
+import { Row } from '../utils/style';
 
 class Home extends React.Component<{ songsIDs: [] }> {
   public render() {
     return (
       <div>
         <Navbar/>
-        <div className='mp3-body'>
-          <div className='browser'>
-            <Browser songs={this.props.songsIDs}/>
-          </div>
-          <div className='player'>
-            <Player/>
-          </div>
-        </div>
+        <Row>
+          <Browser songs={this.props.songsIDs}/>
+          <Player/>
+        </Row>
       </div>
     )
   }

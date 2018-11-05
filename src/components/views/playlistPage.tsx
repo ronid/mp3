@@ -2,14 +2,15 @@ import * as React from 'react';
 import { Navbar } from '../navbar';
 import { Player } from '../player';
 import { PlaylistPanel } from '../playlist/playlistPanel';
+import { Row } from '../utils/style';
 
 export const PlaylistView = () =>
   (
     <div>
       <Navbar/>
-      <div className='mp3-body'>
+      <Row>
         <PlaylistPanel/>
         <Player/>
-      </div>
+      </Row>
     </div>
-  )
+  );

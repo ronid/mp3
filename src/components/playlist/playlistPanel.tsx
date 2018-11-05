@@ -1,13 +1,14 @@
-import {Icon, Menu} from 'antd';
-import {push} from 'connected-react-router';
-import {map} from 'lodash';
+import { Icon, Menu } from 'antd';
+import { push } from 'connected-react-router';
+import { map } from 'lodash';
 import * as React from 'react';
-import {connect} from 'react-redux';
-import {addPlaylist} from '../../actionCreators';
-import {getActivePlaylist, getAllPlaylist} from '../../reducers/playlist';
-import {getActiveSong, getAllSongs} from '../../reducers/songs';
-import {Browser} from '../browser';
-import {AddPlaylistModal} from './addPlaylistModal';
+import { connect } from 'react-redux';
+import { addPlaylist } from '../../actionCreators';
+import { getActivePlaylist, getAllPlaylist } from '../../reducers/playlist';
+import { getActiveSong, getAllSongs } from '../../reducers/songs';
+import { Browser } from '../browser';
+import { Row } from '../utils/style';
+import { AddPlaylistModal } from './addPlaylistModal';
 
 
 class PlaylistView extends React.Component<{
@@ -32,7 +33,7 @@ class PlaylistView extends React.Component<{
 
   public render() {
     return (
-      <div className='mp3-body'>
+      <Row>
         <Menu
           onClick={this.props.setPlaylist}
           selectedKeys={[this.props.currentPlaylist.id]}
@@ -40,14 +41,13 @@ class PlaylistView extends React.Component<{
           {map(this.props.allPlaylist, this.renderPlaylist)}
           <Menu.Item
             key='newPlaylist'
-            onClick={(_) => {this.setState({modalVisible: !this.state.modalVisible})
+            onClick={(_) => {
+              this.setState({modalVisible: !this.state.modalVisible})
             }}>
             <Icon type='plus-circle'/> Add new..
           </Menu.Item>
         </Menu>
-        <div className='browser'>
-          <Browser songs={this.props.currentPlaylist.songs || []}/>
-        </div>
+        <Browser songs={this.props.currentPlaylist.songs || []}/>
         <AddPlaylistModal
           visible={this.state.modalVisible}
           handleCancel={(_) => this.setState({modalVisible: false})}
@@ -55,7 +55,7 @@ class PlaylistView extends React.Component<{
           addPlaylist={this.props.addPlaylist}
           songs={this.props.songs}
         />
-      </div>
+      </Row>
     )
   }
 }
