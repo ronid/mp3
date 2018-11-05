@@ -11,54 +11,40 @@ import { Row } from '../utils/style';
 import { AddPlaylistModal } from './addPlaylistModal';
 
 
-class PlaylistView extends React.Component<{
-  activeSong: number,
-  addPlaylist: (name, songs) => void,
-  currentPlaylist: { songs: [], name: string, id: string },
-  allPlaylist: [],
-  setSong: (songID: number) => void,
-  setPlaylist: (event: any) => void,
-  songs: [],
-}> {
-
-  state = {
-    modalVisible: false,
-  };
-
-  public renderPlaylist = playlist => (
-    <Menu.Item key={playlist.id}>
-      {playlist.name}
-    </Menu.Item>
-  );
-
-  public render() {
-    return (
-      <Row>
-        <Menu
-          onClick={this.props.setPlaylist}
-          selectedKeys={[this.props.currentPlaylist.id]}
-          mode='vertical'>
-          {map(this.props.allPlaylist, this.renderPlaylist)}
-          <Menu.Item
-            key='newPlaylist'
-            onClick={(_) => {
-              this.setState({modalVisible: !this.state.modalVisible})
-            }}>
-            <Icon type='plus-circle'/> Add new..
-          </Menu.Item>
-        </Menu>
-        <Browser songs={this.props.currentPlaylist.songs || []}/>
-        <AddPlaylistModal
-          visible={this.state.modalVisible}
-          handleCancel={(_) => this.setState({modalVisible: false})}
-          handleSubmit={(_) => this.setState({modalVisible: false})}
-          addPlaylist={this.props.addPlaylist}
-          songs={this.props.songs}
-        />
-      </Row>
-    )
-  }
-}
+const PlaylistView = ({
+                        activeSong,
+                        addPlaylist,
+                        currentPlaylist,
+                        allPlaylist,
+                        setSong,
+                        setPlaylist,
+                        songs,
+                      }) => {
+  const [modalVisible, setModalVisibility] = React.useState(false);
+  return (
+    <Row>
+      <Menu
+        onClick={setPlaylist}
+        selectedKeys={[currentPlaylist.id]}
+        mode='vertical'>
+          {map(allPlaylist, playlist => (<Menu.Item key={playlist.id}>{playlist.name}</Menu.Item>))}
+        <Menu.Item
+          key='newPlaylist'
+          onClick={(_) => setModalVisibility(true)}>
+          <Icon type='plus-circle'/> Add new..
+        </Menu.Item>
+      </Menu>
+      <Browser songs={currentPlaylist.songs || []}/>
+      <AddPlaylistModal
+        visible={modalVisible}
+        handleCancel={(_) => setModalVisibility(false)}
+        handleSubmit={(_) => setModalVisibility(false)}
+        addPlaylist={addPlaylist}
+        songs={songs}
+      />
+    </Row>
+  )
+};
 
 const mapStateToProps = state => ({
   activeSong: getActiveSong(state),
