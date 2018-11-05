@@ -4,28 +4,17 @@ import { connect } from 'react-redux';
 import { getSong } from '../reducers/songs';
 import { PlayPauseIcon } from './playPauseIcon';
 
-class SongView extends React.Component<{
-  id: number,
-  name: string,
-  avatar: string,
-  singer: string,
-  isActive: boolean,
-  playAction: (songID: number) => (event: any) => void
-}> {
-
-
-  public render() {
-    return (
-      <List.Item>
-        <List.Item.Meta
-          title={this.props.name}
-          avatar={<Avatar src={this.props.avatar}/>}
-          description={this.props.singer}/>
-        <PlayPauseIcon isActive={this.props.isActive} onClick={this.props.playAction(this.props.id)}/>
-      </List.Item>
-    )
-  }
-}
+const SongView = ({id, name, avatar, singer, isActive, playAction}) => {
+  return (
+    <List.Item>
+      <List.Item.Meta
+        title={name}
+        avatar={<Avatar src={avatar}/>}
+        description={singer}/>
+      <PlayPauseIcon isActive={isActive} onClick={playAction(id)}/>
+    </List.Item>
+  )
+};
 
 
 const mapStateToProps = (state, ownProps) => ({

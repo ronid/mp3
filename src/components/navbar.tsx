@@ -3,9 +3,10 @@ import { push } from 'connected-react-router';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-class NavbarView extends React.Component<{ changeRoute: ({key}) => void, activeRoute: string }> {
+class NavbarView extends React.Component<{ changeRoute: (route) => void, activeRoute: string }> {
   public render() {
-    return <Menu onClick={this.props.changeRoute} selectedKeys={[this.props.activeRoute]} mode='horizontal'>
+    return <Menu onClick={({key}) => this.props.changeRoute(key)} selectedKeys={[this.props.activeRoute]}
+                 mode='horizontal'>
       <Menu.Item key='/live'>
         <Icon type='home'/>Live
       </Menu.Item>
@@ -22,8 +23,8 @@ const mapStateToProps = state => ({
 
 
 const mapDispatchToProps = (dispatch) => ({
-  changeRoute: ({key}) => {
-    return dispatch(push(`${key}`))
+  changeRoute: (route) => {
+    return dispatch(push(`${route}`))
   }
 });
 

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { getActiveSong, getNextSongID, getPreviousSongID } from '../reducers/songs';
 
-const {Meta} = Card;
+const CardMeta = Card.Meta;
 
 
 export class PlayerView extends React.Component<{
@@ -37,7 +37,7 @@ export class PlayerView extends React.Component<{
             />
           </a>
         ]}>
-        <Meta title={this.props.name} description={this.props.singer}/>
+        <CardMeta title={this.props.name} description={this.props.singer}/>
         <audio className='audio-player' controls={true} key={this.props.id} autoPlay={false}>
           <source src={this.props.songURL} type='audio/mpeg'/>
         </audio>
