@@ -1,8 +1,8 @@
-import {Card, Icon} from 'antd';
-import {push} from 'connected-react-router';
+import { Card, Icon } from 'antd';
+import { push } from 'connected-react-router';
 import * as React from 'react';
-import {connect} from 'react-redux';
-import {getActiveSong, getNextSongID, getPreviousSongID} from '../reducers/songs';
+import { connect } from 'react-redux';
+import { getActiveSong, getNextSongID, getPreviousSongID } from '../reducers/songs';
 
 const {Meta} = Card;
 
@@ -60,5 +60,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const Player = connect(mapStateToProps, mapDispatchToProps)(PlayerView);
-export default Player;
+export const Player = connect(mapStateToProps, mapDispatchToProps)(PlayerView);

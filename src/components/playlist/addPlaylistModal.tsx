@@ -1,5 +1,5 @@
-import {Button, Form, Input, Modal, Select} from 'antd';
-import {map} from 'lodash';
+import { Button, Form, Input, Modal, Select } from 'antd';
+import { map } from 'lodash';
 import * as React from 'react';
 
 const FormItem = Form.Item;
@@ -57,5 +57,4 @@ class AddPlaylistModalView extends React.Component<{
   }
 }
 
-const AddPlaylistModal = Form.create({})(AddPlaylistModalView);
-export default AddPlaylistModal;
+export const AddPlaylistModal = Form.create({})(AddPlaylistModalView);

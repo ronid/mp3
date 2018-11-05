@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
-import {getAllSongsIDS} from '../../reducers/songs';
-import Browser from '../browser';
-import Navbar from '../navbar';
-import Player from '../player';
+import { connect } from 'react-redux';
+import { getAllSongsIDS } from '../../reducers/songs';
+import { Browser } from '../browser';
+import { Navbar } from '../navbar';
+import { Player } from '../player';
 
-class Home extends React.Component<{songsIDs: []}> {
+class Home extends React.Component<{ songsIDs: [] }> {
   public render() {
     return (
       <div>
@@ -28,6 +28,5 @@ const mapStateToProps = (state) => ({
   songsIDs: getAllSongsIDS(state),
 });
 
-const HomeView = connect(mapStateToProps)(Home);
-export default HomeView;
+export const HomeView = connect(mapStateToProps)(Home);
 

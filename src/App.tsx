@@ -1,14 +1,14 @@
 import 'antd/dist/antd.css';
-import {ConnectedRouter} from 'connected-react-router';
+import { ConnectedRouter } from 'connected-react-router';
 import * as React from 'react';
-import {Provider} from 'react-redux';
-import {MP3} from './components/mp3';
-import configureStore, {history} from './configureStore';
+import { Provider } from 'react-redux';
+import { MP3 } from './components/mp3';
+import { configureStore, history } from './configureStore';
 
 
 const store = configureStore();
 
-class App extends React.Component {
+export class App extends React.Component {
   public render() {
     return (
       <Provider store={store}>
@@ -21,4 +21,3 @@ class App extends React.Component {
   }
 }
 
-export default App;

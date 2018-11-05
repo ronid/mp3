@@ -1,9 +1,9 @@
-import {List} from 'antd';
-import {push} from 'connected-react-router';
+import { List } from 'antd';
+import { push } from 'connected-react-router';
 import * as React from 'react';
-import {connect} from 'react-redux';
-import {getActiveSong} from '../reducers/songs';
-import Song from './song';
+import { connect } from 'react-redux';
+import { getActiveSong } from '../reducers/songs';
+import { Song } from './song';
 
 class BrowserView extends React.Component<{ activeSong: any, songsIDs: [], setSong: any }> {
   public renderSong = (songID) => (<Song
@@ -29,6 +29,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-const Browser = connect(mapStateToProps, mapDispatchToProps)(BrowserView);
-export default Browser;
-
+export const Browser = connect(mapStateToProps, mapDispatchToProps)(BrowserView);

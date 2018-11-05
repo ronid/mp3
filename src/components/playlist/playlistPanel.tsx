@@ -6,8 +6,8 @@ import {connect} from 'react-redux';
 import {addPlaylist} from '../../actionCreators';
 import {getActivePlaylist, getAllPlaylist} from '../../reducers/playlist';
 import {getActiveSong, getAllSongs} from '../../reducers/songs';
-import Browser from '../browser';
-import AddPlaylistModal from './addPlaylistModal';
+import {Browser} from '../browser';
+import {AddPlaylistModal} from './addPlaylistModal';
 
 
 class PlaylistView extends React.Component<{
@@ -74,5 +74,4 @@ const mapDispatchToProps = dispatch => ({
   setSong: songID => dispatch(push(`song=${songID}`))
 });
 
-const Player = connect(mapStateToProps, mapDispatchToProps)(PlaylistView);
-export default Player;
+export const PlaylistPanel = connect(mapStateToProps, mapDispatchToProps)(PlaylistView);

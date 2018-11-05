@@ -1,4 +1,4 @@
-import {Icon} from 'antd';
+import { Icon } from 'antd';
 import * as React from 'react';
 
 export class PlayPauseIcon extends React.Component<{

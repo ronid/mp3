@@ -1,7 +1,7 @@
-import {Icon, Menu} from 'antd';
-import {push} from 'connected-react-router';
+import { Icon, Menu } from 'antd';
+import { push } from 'connected-react-router';
 import * as React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 class NavbarView extends React.Component<{ changeRoute: ({key}) => void, activeRoute: string }> {
   public render() {
@@ -28,6 +28,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-const Navbar = connect(mapStateToProps, mapDispatchToProps)(NavbarView);
-export default Navbar;
-
+export const Navbar = connect(mapStateToProps, mapDispatchToProps)(NavbarView);

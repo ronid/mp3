@@ -1,11 +1,10 @@
 import {indexOf, keys, values} from 'lodash';
 import {getActivePlaylist} from './playlist';
 
-const songs = (state = {all: []}, action) => {
+export const songs = (state = {all: []}, action) => {
   return state
 };
 
-export default songs;
 
 export const getSong = (state, id) => state.songs.byID[id];
 

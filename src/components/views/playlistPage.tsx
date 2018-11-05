@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Navbar from '../navbar';
-import Player from '../player';
-import Playlist from '../playlist/playlistPanel';
+import { Navbar } from '../navbar';
+import { Player } from '../player';
+import { PlaylistPanel } from '../playlist/playlistPanel';
 
 export class PlaylistView extends React.Component {
   public render() {
@@ -9,7 +9,7 @@ export class PlaylistView extends React.Component {
       <div>
         <Navbar/>
         <div className='mp3-body'>
-          <Playlist/>
+          <PlaylistPanel/>
           <Player/>
         </div>
       </div>
