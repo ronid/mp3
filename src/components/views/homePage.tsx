@@ -12,7 +12,7 @@ class Home extends React.Component<{ songsIDs: [] }> {
       <div>
         <Navbar/>
         <Row>
-          <Browser songs={this.props.songsIDs}/>
+          <Browser songsIDs={this.props.songsIDs}/>
           <Player/>
         </Row>
       </div>

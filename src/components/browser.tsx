@@ -1,9 +1,13 @@
 import { List } from 'antd';
+import { ClickParam } from 'antd/lib/menu';
 import { push } from 'connected-react-router';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import * as Redux from 'redux';
 import { default as styled } from 'styled-components';
 import { getActiveSong } from '../reducers/songs';
+import { AppState, SongState } from '../types/store';
+
 import { Song } from './song';
 
 
@@ -12,12 +16,13 @@ export const BrowserContent = styled.div`
   width: 600px;
 `;
 
-class BrowserView extends React.Component<{ activeSong: any, songsIDs: [], setSong: any }> {
-  public renderSong = (songID) => (<Song
-    id={songID}
-    isActive={this.props.activeSong && songID === this.props.activeSong.id}
-    playAction={this.props.setSong}
-  />);
+class BrowserView extends React.Component<BrowserProps> {
+  public renderSong = (songID: string) => (
+    <Song
+      id={songID}
+      isActive={this.props.activeSong && songID === this.props.activeSong.id}
+      playAction={this.props.setSong}
+    />);
 
   public render() {
     return (
@@ -28,16 +33,26 @@ class BrowserView extends React.Component<{ activeSong: any, songsIDs: [], setSo
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+interface OwnProps {
+  songsIDs: string[],
+}
+
+interface StateProps {
+  activeSong: SongState,
+}
+
+interface DispatchProps {
+  setSong: (songID: string) => (event: ClickParam) => void
+}
+
+type BrowserProps = OwnProps & StateProps & DispatchProps;
+
+const mapStateToProps = (state: AppState) => ({
   activeSong: getActiveSong(state),
-  songsIDs: ownProps.songs,
 });
 
-
-const mapDispatchToProps = dispatch => ({
-  setSong: songID => _ => dispatch(push(`?song=${songID}`))
-
+const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => ({
+  setSong: songID => (event: ClickParam) => dispatch(push(`?song=${songID}`))
 });
-
 
 export const Browser = connect(mapStateToProps, mapDispatchToProps)(BrowserView);

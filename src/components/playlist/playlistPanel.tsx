@@ -31,7 +31,7 @@ const PlaylistView = (props: PlaylistPanelProps) => {
           <Icon type='plus-circle'/> Add new..
         </Menu.Item>
       </Menu>
-      <Browser songs={currentPlaylist.songs || []}/>
+      <Browser songsIDs={currentPlaylist.songs || []}/>
       <AddPlaylistModal
         visible={modalVisible}
         handleCancel={(_) => setModalVisibility(false)}
