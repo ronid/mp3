@@ -1,7 +1,10 @@
 import { Button, Form, Input, Modal, Select } from 'antd';
+import { WrappedFormUtils } from 'antd/lib/form/Form';
+import { OptionProps } from 'antd/lib/select';
 import { map } from 'lodash';
 import * as React from 'react';
 import { default as styled } from 'styled-components';
+import { SongState } from '../../types/store';
 
 
 export const ModalButton = styled(Button)`
@@ -12,34 +15,40 @@ export const ModalButton = styled(Button)`
 const FormItem = Form.Item;
 const Option = Select.Option;
 
-class AddPlaylistModalView extends React.Component<{
-  addPlaylist: (name, songs) => void,
-  form: any,
-  handleCancel: (e: any) => void
-  handleSubmit: (e: any) => void,
+
+interface AddPlaylistModalProps {
+  addPlaylist: (name: string, songs: string[]) => void,
+  form: WrappedFormUtils,
+  handleCancel: (e: React.MouseEvent<HTMLInputElement>) => void
+  handleSubmit: (e: React.MouseEvent<HTMLInputElement>) => void,
   songs: [],
   visible: boolean,
-}> {
+}
 
-  public handleSubmit = (e) => {
-    const {name, songs} = this.props.form.getFieldsValue();
-    this.props.addPlaylist(name, songs);
+class AddPlaylistModalView extends React.Component<AddPlaylistModalProps> {
+
+  public handleSubmit = (e: React.MouseEvent<HTMLInputElement>) => {
+    const {form} = this.props;
+    this.props.addPlaylist(form.getFieldValue('name'), form.getFieldValue('songs'));
     this.props.handleSubmit(e);
-
     // Reset form state.
     this.props.form.setFieldsValue({name: '', songs: []})
+  };
+
+  public optionStartsWithInput = (input: string, option: React.ReactElement<OptionProps>) => {
+    const value = option.props.children;
+    if (!(value && typeof value === 'string')) {
+      return false;
+    } else {
+      return value.toLowerCase().indexOf(input.toLowerCase()) >= 0
+    }
   };
 
 
   public render() {
     const {getFieldDecorator} = this.props.form;
-    console.log(getFieldDecorator);
     return (
-      <Modal
-        title='Create your own playlist!'
-        visible={this.props.visible}
-        footer={null}
-      >
+      <Modal title='Create your own playlist!' visible={this.props.visible} footer={null}>
         <Form layout='horizontal'>
           <FormItem>
             {getFieldDecorator('name')(<Input placeholder='Name your playlist'/>)}
@@ -50,9 +59,9 @@ class AddPlaylistModalView extends React.Component<{
             style={{width: 200}}
             placeholder='Select songs'
             optionFilterProp='children'
-            filterOption={(input, option: any) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+            filterOption={this.optionStartsWithInput}
           >
-            {map(this.props.songs, song => (<Option key={song.id}>{song.name}</Option>))}
+            {map(this.props.songs, (song: SongState) => (<Option key={song.id}>{song.name}</Option>))}
           </Select>)}
           <br/>
           <br/>
