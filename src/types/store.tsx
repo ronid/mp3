@@ -1,3 +1,5 @@
+import { RouterState } from 'connected-react-router';
+
 export interface SongState {
   name: string,
   id: string,
@@ -24,4 +26,5 @@ export interface PlaylistState {
 export interface AppState {
   songs: SongsState,
   playlist: PlaylistState,
+  router: RouterState
 }

@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { getAllSongsIDS } from '../../reducers/songs';
+import { AppState } from '../../types/store';
 import { Browser } from '../browser';
 import { Navbar } from '../navbar';
 import { Player } from '../player';
 import { Row } from '../utils/style';
 
-class Home extends React.Component<{ songsIDs: [] }> {
+class Home extends React.Component<HomeProps> {
   public render() {
     return (
       <div>
@@ -20,8 +21,11 @@ class Home extends React.Component<{ songsIDs: [] }> {
   }
 }
 
+interface HomeProps {
+  songsIDs: string[],
+}
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppState) => ({
   songsIDs: getAllSongsIDS(state),
 });
 

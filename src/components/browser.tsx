@@ -7,7 +7,6 @@ import * as Redux from 'redux';
 import { default as styled } from 'styled-components';
 import { getActiveSong } from '../reducers/songs';
 import { AppState, SongState } from '../types/store';
-
 import { Song } from './song';
 
 
@@ -33,6 +32,7 @@ class BrowserView extends React.Component<BrowserProps> {
   }
 }
 
+
 interface OwnProps {
   songsIDs: string[],
 }
@@ -51,8 +51,10 @@ const mapStateToProps = (state: AppState) => ({
   activeSong: getActiveSong(state),
 });
 
+
 const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => ({
   setSong: songID => (event: ClickParam) => dispatch(push(`?song=${songID}`))
 });
+
 
 export const Browser = connect(mapStateToProps, mapDispatchToProps)(BrowserView);

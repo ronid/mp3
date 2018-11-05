@@ -57,16 +57,16 @@ interface DispatchProps {
 
 type PlaylistPanelProps = StateProps & DispatchProps;
 
-const mapStateToProps = (state: AppState): StateProps => ({
+const mapStateToProps = (state: AppState) => ({
   allPlaylist: getAllPlaylist(state),
   currentPlaylist: getActivePlaylist(state) || {},
   songs: getAllSongs(state),
 });
 
 
-const mapDispatchToProps = (dispatch: Redux.Dispatch<any>): DispatchProps => ({
+const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => ({
   addPlaylist: (name: string, songsIDs: string[]) => dispatch(addPlaylist(name, songsIDs)),
   playlistOnClick: (event: ClickParam) => dispatch(push(`/playlist/${event.key}`)),
 });
 
-export const PlaylistPanel = connect<StateProps, DispatchProps>(mapStateToProps, mapDispatchToProps)(PlaylistView);
+export const PlaylistPanel = connect(mapStateToProps, mapDispatchToProps)(PlaylistView);

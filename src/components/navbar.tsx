@@ -2,8 +2,11 @@ import { Icon, Menu } from 'antd';
 import { push } from 'connected-react-router';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import * as Redux from 'redux';
+import { AppState } from '../types/store';
 
-class NavbarView extends React.Component<{ changeRoute: (route) => void, activeRoute: string }> {
+
+class NavbarView extends React.Component<NavbarProps> {
   public render() {
     return <Menu onClick={({key}) => this.props.changeRoute(key)} selectedKeys={[this.props.activeRoute]}
                  mode='horizontal'>
@@ -17,13 +20,22 @@ class NavbarView extends React.Component<{ changeRoute: (route) => void, activeR
   }
 }
 
-const mapStateToProps = state => ({
+interface StateProps {
+  activeRoute: string,
+}
+
+interface DispatchProps {
+  changeRoute: (route: string) => void
+}
+
+type NavbarProps = StateProps & DispatchProps;
+
+const mapStateToProps = (state: AppState) => ({
   activeRoute: state.router.location.pathname,
 });
 
-
-const mapDispatchToProps = (dispatch) => ({
-  changeRoute: (route) => {
+const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => ({
+  changeRoute: (route: string) => {
     return dispatch(push(`${route}`))
   }
 });
