@@ -1,11 +1,17 @@
 import { indexOf, keys, values } from 'lodash';
-import { RootAction } from '../actionCreators';
-import { AppState, SongState } from '../types/store';
+import { combineReducers, Reducer } from 'redux';
+import { RootAction } from '../actions';
+import { AppState, ByIDState, SongsState, SongState } from '../types/store';
 import { getActivePlaylist } from './playlist';
 
-export const songs = (state = {all: []}, action: RootAction) => {
+
+const byID: Reducer<ByIDState, RootAction> = (state = {}, action) => {
   return state
 };
+
+export const songs = combineReducers<SongsState, RootAction>({
+  byID,
+});
 
 
 export const getSong = (state: AppState, id: string) => state.songs.byID[id];

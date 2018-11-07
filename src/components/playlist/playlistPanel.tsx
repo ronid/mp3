@@ -5,7 +5,7 @@ import { map } from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as Redux from 'redux';
-import { addPlaylist } from '../../actionCreators';
+import { addPlaylist } from '../../actions/playlist';
 import { getActivePlaylist, getAllPlaylist } from '../../reducers/playlist';
 import { getAllSongs } from '../../reducers/songs';
 import { AppState, PlaylistInstanceState, SongState } from '../../types/store';

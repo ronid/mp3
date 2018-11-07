@@ -1,15 +1,15 @@
-import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createLogger from 'redux-logger';
-import { rootReducer } from './reducers';
+import { createRootReducer } from './reducers';
 
 export const history = createBrowserHistory();
 
 export const configureStore = () => {
   return createStore(
-    connectRouter(history)(rootReducer),
+    createRootReducer(history),
     {
       playlist: {
         all: [
