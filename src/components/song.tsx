@@ -1,10 +1,12 @@
 import { Avatar, List } from 'antd';
+import { ClickParam } from 'antd/lib/menu';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { getSong } from '../reducers/songs';
+import { AppState } from '../types/store';
 import { PlayPauseIcon } from './playPauseIcon';
 
-const SongView = ({id, name, avatar, singer, isActive, playAction}) => {
+const SongView = ({id, name, avatar, singer, isActive, playAction}: SongViewProps) => {
   return (
     <List.Item>
       <List.Item.Meta
@@ -17,7 +19,22 @@ const SongView = ({id, name, avatar, singer, isActive, playAction}) => {
 };
 
 
-const mapStateToProps = (state, ownProps) => ({
+interface OwnProps {
+  id: string,
+  isActive: boolean
+}
+
+interface StateProps {
+  name: string,
+  avatar: string,
+  singer: string,
+  isActive: string,
+  playAction: (songID: string) => (event: ClickParam) => void
+}
+
+type SongViewProps = OwnProps & StateProps;
+
+const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
   ...getSong(state, ownProps.id),
 });
 

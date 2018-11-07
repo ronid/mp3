@@ -1,13 +1,15 @@
 import { Card } from 'antd';
+import { ClickParam } from 'antd/lib/menu';
 import { push } from 'connected-react-router';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import * as Redux from 'redux';
 import { default as styled } from 'styled-components';
 import { getActiveSong, getNextSongID, getPreviousSongID } from '../reducers/songs';
+import { AppState } from '../types/store';
 import { ClickableIcon } from './utils/style';
 
 const CardMeta = Card.Meta;
-
 
 export const SongCover = styled.img`
   height: 600px;
@@ -25,17 +27,7 @@ export const PlayerBody = styled(Card)`
   margin: auto;
 `;
 
-export class PlayerView extends React.Component<{
-  id: string,
-  name: string,
-  avatar: string,
-  singer: string,
-  songURL: string,
-  playSong: (songID: string) => (dispatch: any) => void,
-  playPrevious: (event: any) => void,
-  nextSongID: any,
-  previousSongID: any,
-}> {
+export class PlayerView extends React.Component<PlayerViewProps> {
 
   public render() {
     return (
@@ -62,16 +54,31 @@ export class PlayerView extends React.Component<{
   }
 }
 
+interface StateProps {
+  id: string,
+  name: string,
+  avatar: string,
+  singer: string,
+  songURL: string,
+  nextSongID: any,
+  previousSongID: any,
+}
 
-const mapStateToProps = (state) => ({
+interface DispatchProps {
+  playSong: (songID: string) => (dispatch: any) => void,
+}
+
+type PlayerViewProps = StateProps & DispatchProps;
+
+const mapStateToProps = (state: AppState) => ({
   ...getActiveSong(state),
   nextSongID: getNextSongID(state),
   previousSongID: getPreviousSongID(state),
 });
 
 
-const mapDispatchToProps = (dispatch) => ({
-  playSong: songID => (_) => {
+const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => ({
+  playSong: (songID: string) => (event: ClickParam) => {
     return dispatch(push(`?song=${songID}`))
   },
 });

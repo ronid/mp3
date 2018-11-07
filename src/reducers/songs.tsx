@@ -1,45 +1,32 @@
-import {indexOf, keys, values} from 'lodash';
-import {getActivePlaylist} from './playlist';
+import { indexOf, keys, values } from 'lodash';
+import { RootAction } from '../actionCreators';
+import { AppState, SongState } from '../types/store';
+import { getActivePlaylist } from './playlist';
 
-export const songs = (state = {all: []}, action) => {
+export const songs = (state = {all: []}, action: RootAction) => {
   return state
 };
 
 
-export const getSong = (state, id) => state.songs.byID[id];
+export const getSong = (state: AppState, id: string) => state.songs.byID[id];
 
-
-const chooseCurrentID = (state, id) => {
-  if (!id && !getActiveSong(state)) {
-    return null;
-  }
-   return id || getActiveSong(state).id;
-
-};
-
-const getSongsByState = (state) => {
-  const activePlaylist = getActivePlaylist(state);
-  return activePlaylist ? activePlaylist.songs : keys(state.songs.byID);
-};
-
-export const getNextSongID = (state, id?) => {
-  id = chooseCurrentID(state, id);
+export const getNextSongID = (state: AppState, id?: string) => {
+  id = id ? id : getActiveSongID(state);
   if (!id) {
-    return null;
+    return undefined;
   }
-
-  const songs =  getSongsByState(state);
+  const songs = getSongsByState(state);
   return songs[(indexOf(songs, id) + 1) % songs.length]
 };
 
 
-export const getPreviousSongID = (state, id?) => {
-  id = chooseCurrentID(state, id);
+export const getPreviousSongID = (state: AppState, id?: string) => {
+  id = id ? id : getActiveSongID(state);
   if (!id) {
     return null;
   }
 
-  const songs =  getSongsByState(state);
+  const songs = getSongsByState(state);
   let index = indexOf(songs, id) - 1;
   if (index < 0) {
     index = songs.length - 1;
@@ -47,15 +34,30 @@ export const getPreviousSongID = (state, id?) => {
   return songs[index]
 };
 
-export const getAllSongs = state => values(state.songs.byID);
 
-export const getAllSongsIDS = state => keys(state.songs.byID);
+const getActiveSongID = (state: AppState) => {
+  const activeSong = getActiveSong(state);
+  if (activeSong) {
+    return activeSong.id;
+  }
+  return undefined;
+};
 
-export const getActiveSong = state => {
+const getSongsByState = (state: AppState) => {
+  const activePlaylist = getActivePlaylist(state);
+  return activePlaylist ? activePlaylist.songs : keys(state.songs.byID);
+};
+
+
+export const getAllSongs = (state: AppState) => values(state.songs.byID);
+
+export const getAllSongsIDS = (state: AppState) => keys(state.songs.byID);
+
+export const getActiveSong = (state: AppState): SongState | undefined => {
   const values = new URLSearchParams(state.router.location.search);
   const activeSong = values.get('song');
   if (!activeSong) {
-    return {}
+    return undefined
   }
   return getSong(state, activeSong);
 };
