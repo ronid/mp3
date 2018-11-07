@@ -7,19 +7,18 @@ import { Navbar } from '../navbar';
 import { Player } from '../player';
 import { Row } from '../utils/style';
 
-class Home extends React.Component<HomeProps> {
-  public render() {
-    return (
-      <div>
-        <Navbar/>
-        <Row>
-          <Browser songsIDs={this.props.songsIDs}/>
-          <Player/>
-        </Row>
-      </div>
-    )
-  }
-}
+const Home = (props: HomeProps) => {
+  const {songsIDs} = props;
+  return (
+    <div>
+      <Navbar/>
+      <Row>
+        <Browser songsIDs={songsIDs}/>
+        <Player/>
+      </Row>
+    </div>
+  )
+};
 
 interface HomeProps {
   songsIDs: string[],

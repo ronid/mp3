@@ -6,18 +6,17 @@ import * as Redux from 'redux';
 import { AppState } from '../types/store';
 
 
-class NavbarView extends React.Component<NavbarProps> {
-  public render() {
-    return <Menu onClick={({key}) => this.props.changeRoute(key)} selectedKeys={[this.props.activeRoute]}
-                 mode='horizontal'>
-      <Menu.Item key='/live'>
-        <Icon type='home'/>Live
-      </Menu.Item>
-      <Menu.Item key='/playlist'>
-        <Icon type='bars'/>Playlists
-      </Menu.Item>
-    </Menu>
-  }
+const NavbarView = (props: NavbarProps) => {
+  const {changeRoute, activeRoute} = props;
+  return <Menu onClick={({key}) => changeRoute(key)} selectedKeys={[activeRoute]}
+               mode='horizontal'>
+    <Menu.Item key='/live'>
+      <Icon type='home'/>Live
+    </Menu.Item>
+    <Menu.Item key='/playlist'>
+      <Icon type='bars'/>Playlists
+    </Menu.Item>
+  </Menu>
 }
 
 interface StateProps {

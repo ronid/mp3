@@ -3,13 +3,13 @@ import { createBrowserHistory } from 'history';
 import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createLogger from 'redux-logger';
-import { mp3 } from './reducers';
+import { rootReducer } from './reducers';
 
 export const history = createBrowserHistory();
 
 export const configureStore = () => {
   return createStore(
-    connectRouter(history)(mp3),
+    connectRouter(history)(rootReducer),
     {
       playlist: {
         all: [

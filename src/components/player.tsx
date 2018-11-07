@@ -27,32 +27,30 @@ export const PlayerBody = styled(Card)`
   margin: auto;
 `;
 
-export class PlayerView extends React.Component<PlayerViewProps> {
-
-  public render() {
+const PlayerView = (props: PlayerViewProps) => {
+  const {id, avatar, name, songURL, singer, previousSongID, nextSongID, playSong} = props;
     return (
       <PlayerBody
-        cover={<SongCover src={this.props.avatar}/>}
+        cover={<SongCover src={avatar}/>}
         actions={[
           <ClickableIcon
-            key={this.props.previousSongID}
-            onClick={this.props.playSong(this.props.previousSongID)}
+            key={previousSongID}
+            onClick={playSong(previousSongID)}
             type='step-backward'
           />,
           <ClickableIcon
-            key={this.props.nextSongID}
-            onClick={this.props.playSong(this.props.nextSongID)}
+            key={nextSongID}
+            onClick={playSong(nextSongID)}
             type='step-forward'
           />,
         ]}>
-        <CardMeta title={this.props.name} description={this.props.singer}/>
-        <AudioPlayer controls={true} key={this.props.id} autoPlay={false}>
-          <source src={this.props.songURL} type='audio/mpeg'/>
+        <CardMeta title={name} description={singer}/>
+        <AudioPlayer controls={true} key={id} autoPlay={false}>
+          <source src={songURL} type='audio/mpeg'/>
         </AudioPlayer>
       </PlayerBody>
     )
-  }
-}
+};
 
 interface StateProps {
   id: string,

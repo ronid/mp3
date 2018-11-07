@@ -3,7 +3,7 @@ import { playlist } from './playlist';
 import { songs } from './songs';
 
 
-export const mp3 = combineReducers({
+export const rootReducer = combineReducers({
   playlist,
   songs,
 });
