@@ -1,16 +1,15 @@
-import { Form, Input, Modal, Select } from 'antd';
+import { Button, Form, Input, Modal, Select } from 'antd';
 import { WrappedFormUtils } from 'antd/lib/form/Form';
 import { OptionProps } from 'antd/lib/select';
 import { map } from 'lodash';
 import * as React from 'react';
-import { default as styled } from 'styled-components';
+import styled from 'styled-components';
 import { SongState } from '../../types/store';
 
 
-export const ModalButton = styled.button`
+export const ModalButton = styled(Button as any)`
   margin: 5px;
 `;
-
 
 const FormItem = Form.Item;
 const Option = Select.Option;

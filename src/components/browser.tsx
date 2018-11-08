@@ -3,7 +3,7 @@ import { push } from 'connected-react-router';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as Redux from 'redux';
-import { default as styled } from 'styled-components';
+import styled from 'styled-components';
 import { RootAction } from '../actions';
 import { getActiveSong } from '../reducers/songs';
 import { AppState, SongState } from '../types/store';

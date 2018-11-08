@@ -1,6 +1,6 @@
 import { Card } from 'antd';
 import * as React from 'react';
-import { default as styled } from 'styled-components';
+import styled from 'styled-components';
 import { SongState } from '../types/store';
 import { ClickableIcon } from './utils/style';
 
