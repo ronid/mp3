@@ -1,12 +1,7 @@
 import { Card } from 'antd';
-import { ClickParam } from 'antd/lib/menu';
-import { push } from 'connected-react-router';
 import * as React from 'react';
-import { connect } from 'react-redux';
-import * as Redux from 'redux';
 import { default as styled } from 'styled-components';
-import { getActiveSong, getNextSongID, getPreviousSongID } from '../reducers/songs';
-import { AppState } from '../types/store';
+import { SongState } from '../types/store';
 import { ClickableIcon } from './utils/style';
 
 const CardMeta = Card.Meta;
@@ -27,58 +22,49 @@ export const PlayerBody = styled(Card)`
   margin: auto;
 `;
 
-const PlayerView = (props: PlayerViewProps) => {
-  const {id, avatar, name, songURL, singer, previousSongID, nextSongID, playSong} = props;
+export const Player = (props: PlayerViewProps) => {
+  let actions: React.ReactNode[] = [];
+  const {currentSong, nextSongID, previousSongID, playSong} = props;
+  if (nextSongID && previousSongID) {
+    actions = [
+      <ClickableIcon
+        key={previousSongID}
+        onClick={playSong(previousSongID)}
+        type='step-backward'
+      />,
+      <ClickableIcon
+        key={nextSongID}
+        onClick={playSong(nextSongID)}
+        type='step-forward'
+      />,
+    ]
+  }
+  if (currentSong) {
     return (
       <PlayerBody
-        cover={<SongCover src={avatar}/>}
-        actions={[
-          <ClickableIcon
-            key={previousSongID}
-            onClick={playSong(previousSongID)}
-            type='step-backward'
-          />,
-          <ClickableIcon
-            key={nextSongID}
-            onClick={playSong(nextSongID)}
-            type='step-forward'
-          />,
-        ]}>
-        <CardMeta title={name} description={singer}/>
-        <AudioPlayer controls={true} key={id} autoPlay={false}>
-          <source src={songURL} type='audio/mpeg'/>
+        cover={<SongCover src={currentSong.avatar}/>}
+        actions={actions}>
+        <CardMeta title={currentSong.name} description={currentSong.singer}/>
+        <AudioPlayer controls={true} key={currentSong.id} autoPlay={false}>
+          <source src={currentSong.songURL} type='audio/mpeg'/>
         </AudioPlayer>
       </PlayerBody>
     )
+  } else {
+    return (
+      <PlayerBody>
+        <CardMeta title='No active song'/>
+        <AudioPlayer>
+          <source src='' type='audio/mpeg'/>
+        </AudioPlayer>
+      </PlayerBody>
+    )
+  }
 };
 
-interface StateProps {
-  id: string,
-  name: string,
-  avatar: string,
-  singer: string,
-  songURL: string,
-  nextSongID: any,
-  previousSongID: any,
+interface PlayerViewProps {
+  currentSong: SongState | null
+  nextSongID: string | null
+  previousSongID: string | null
+  playSong: (songID: string) => (event: React.MouseEvent<HTMLInputElement>) => void
 }
-
-interface DispatchProps {
-  playSong: (songID: string) => (dispatch: any) => void,
-}
-
-type PlayerViewProps = StateProps & DispatchProps;
-
-const mapStateToProps = (state: AppState) => ({
-  ...getActiveSong(state),
-  nextSongID: getNextSongID(state),
-  previousSongID: getPreviousSongID(state),
-});
-
-
-const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => ({
-  playSong: (songID: string) => (event: ClickParam) => {
-    return dispatch(push(`?song=${songID}`))
-  },
-});
-
-export const Player = connect(mapStateToProps, mapDispatchToProps)(PlayerView);

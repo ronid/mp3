@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal, Select } from 'antd';
+import { Form, Input, Modal, Select } from 'antd';
 import { WrappedFormUtils } from 'antd/lib/form/Form';
 import { OptionProps } from 'antd/lib/select';
 import { map } from 'lodash';
@@ -7,7 +7,7 @@ import { default as styled } from 'styled-components';
 import { SongState } from '../../types/store';
 
 
-export const ModalButton = styled(Button)`
+export const ModalButton = styled.button`
   margin: 5px;
 `;
 
@@ -19,15 +19,15 @@ const Option = Select.Option;
 interface AddPlaylistModalProps {
   addPlaylist: (name: string, songs: string[]) => void,
   form: WrappedFormUtils,
-  handleCancel: (e: React.MouseEvent<HTMLInputElement>) => void,
-  handleSubmit: (e: React.MouseEvent<HTMLInputElement>) => void,
+  handleCancel: (e: React.MouseEvent<HTMLButtonElement>) => void,
+  handleSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void,
   songs: SongState[],
   visible: boolean,
 }
 
 class AddPlaylistModalView extends React.Component<AddPlaylistModalProps> {
 
-  public handleSubmit = (e: React.MouseEvent<HTMLInputElement>) => {
+  public handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     const {form} = this.props;
     this.props.addPlaylist(form.getFieldValue('name'), form.getFieldValue('songs'));
     this.props.handleSubmit(e);

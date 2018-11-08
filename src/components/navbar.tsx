@@ -3,6 +3,7 @@ import { push } from 'connected-react-router';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as Redux from 'redux';
+import { RootAction } from '../actions';
 import { AppState } from '../types/store';
 
 
@@ -33,7 +34,7 @@ const mapStateToProps = (state: AppState) => ({
   activeRoute: state.router.location.pathname,
 });
 
-const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => ({
+const mapDispatchToProps = (dispatch: Redux.Dispatch<RootAction>) => ({
   changeRoute: (route: string) => {
     return dispatch(push(`${route}`))
   }

@@ -1,11 +1,10 @@
 import { Icon } from 'antd';
-import { ClickParam } from 'antd/lib/menu';
 import * as React from 'react';
 import { ClickableIcon } from './utils/style';
 
 interface PlayPauseIconProps {
-  isActive: boolean,
-  onClick: (event: ClickParam) => void
+  isActive: boolean | undefined,
+  onClick: (event: React.MouseEvent<HTMLInputElement>) => void
 }
 
 export const PlayPauseIcon = ({isActive, onClick} : PlayPauseIconProps) => {

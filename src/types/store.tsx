@@ -1,14 +1,17 @@
 import { RouterState } from 'connected-react-router';
 
 export interface SongState {
-  name: string,
-  id: string,
+  name: string
+  id: string
+  avatar: string
+  singer: string
+  songURL: string
 }
 
 export interface PlaylistInstanceState {
-  name: string,
-  id: string,
-  songs: string[],
+  name: string
+  id: string
+  songs: string[]
 }
 
 export interface ByIDState {
@@ -20,11 +23,11 @@ export interface SongsState {
 }
 
 export interface PlaylistState {
-  all: PlaylistInstanceState[],
+  all: PlaylistInstanceState[]
 }
 
 export interface AppState {
-  songs: SongsState,
-  playlist: PlaylistState,
+  songs: SongsState
+  playlist: PlaylistState
   router: RouterState
 }

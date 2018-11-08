@@ -1,10 +1,10 @@
 import { Avatar, List } from 'antd';
-import { ClickParam } from 'antd/lib/menu';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { getSong } from '../reducers/songs';
 import { AppState } from '../types/store';
 import { PlayPauseIcon } from './playPauseIcon';
+
 
 const SongView = ({id, name, avatar, singer, isActive, playAction}: SongViewProps) => {
   return (
@@ -21,15 +21,15 @@ const SongView = ({id, name, avatar, singer, isActive, playAction}: SongViewProp
 
 interface OwnProps {
   id: string,
-  isActive: boolean
+  isActive: boolean | undefined,
+  playAction: (songID: string) => (event: React.MouseEvent<HTMLInputElement>) => void,
 }
 
 interface StateProps {
-  name: string,
-  avatar: string,
-  singer: string,
-  isActive: string,
-  playAction: (songID: string) => (event: ClickParam) => void
+  name?: string,
+  avatar?: string,
+  singer?: string,
+
 }
 
 type SongViewProps = OwnProps & StateProps;

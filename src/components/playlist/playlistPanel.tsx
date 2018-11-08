@@ -5,6 +5,7 @@ import { map } from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as Redux from 'redux';
+import { RootAction } from '../../actions';
 import { addPlaylist } from '../../actions/playlist';
 import { getActivePlaylist, getAllPlaylist } from '../../reducers/playlist';
 import { getAllSongs } from '../../reducers/songs';
@@ -27,7 +28,7 @@ const PlaylistView = (props: PlaylistPanelProps) => {
           <Menu.Item key={playlist.id}>{playlist.name}</Menu.Item>))}
         <Menu.Item
           key='newPlaylist'
-          onClick={(_) => setModalVisibility(true)}>
+          onClick={(_: ClickParam) => setModalVisibility(true)}>
           <Icon type='plus-circle'/> Add new..
         </Menu.Item>
       </Menu>
@@ -64,7 +65,7 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 
-const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => ({
+const mapDispatchToProps = (dispatch: Redux.Dispatch<RootAction>) => ({
   addPlaylist: (name: string, songsIDs: string[]) => dispatch(addPlaylist(name, songsIDs)),
   playlistOnClick: (event: ClickParam) => dispatch(push(`/playlist/${event.key}`)),
 });

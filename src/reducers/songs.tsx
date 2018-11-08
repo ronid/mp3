@@ -16,17 +16,17 @@ export const songs = combineReducers<SongsState, RootAction>({
 
 export const getSong = (state: AppState, id: string) => state.songs.byID[id];
 
-export const getNextSongID = (state: AppState, id?: string) => {
+export const getNextSongID = (state: AppState, id: string | null = null) => {
   id = id ? id : getActiveSongID(state);
   if (!id) {
-    return undefined;
+    return null;
   }
   const songs = getSongsByState(state);
   return songs[(indexOf(songs, id) + 1) % songs.length]
 };
 
 
-export const getPreviousSongID = (state: AppState, id?: string) => {
+export const getPreviousSongID = (state: AppState, id: string | null = null) => {
   id = id ? id : getActiveSongID(state);
   if (!id) {
     return null;
@@ -46,7 +46,7 @@ const getActiveSongID = (state: AppState) => {
   if (activeSong) {
     return activeSong.id;
   }
-  return undefined;
+  return null;
 };
 
 const getSongsByState = (state: AppState) => {
@@ -59,11 +59,11 @@ export const getAllSongs = (state: AppState) => values(state.songs.byID);
 
 export const getAllSongsIDS = (state: AppState) => keys(state.songs.byID);
 
-export const getActiveSong = (state: AppState): SongState | undefined => {
+export const getActiveSong = (state: AppState): SongState | null => {
   const values = new URLSearchParams(state.router.location.search);
   const activeSong = values.get('song');
   if (!activeSong) {
-    return undefined
+    return null;
   }
   return getSong(state, activeSong);
 };

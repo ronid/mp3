@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router';
-import { HomeView } from './views/homePage';
-import { PlaylistView } from './views/playlistPage';
+import { HomePage } from './views/homePage';
+import { PlaylistPage } from './views/playlistPage';
 
 export const MP3 = () => (
   <Switch>
-    <Route exact={true} path='/' render={() => <HomeView/>}/>
-    <Route path='/playlist' render={() => <PlaylistView/>}/>
-    <Route path='/live' render={() => <HomeView/>}/>
+    <Route exact={true} path='/' render={() => <HomePage/>}/>
+    <Route path='/playlist' render={() => <PlaylistPage/>}/>
+    <Route path='/live' render={() => <HomePage/>}/>
   </Switch>
 );
